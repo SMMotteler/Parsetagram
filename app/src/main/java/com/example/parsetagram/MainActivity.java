@@ -45,6 +45,7 @@ public class MainActivity extends AppCompatActivity {
     Button btTakePhoto;
     ImageView ivPhoto;
     Button btSubmit;
+    Button btFeed;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -56,6 +57,15 @@ public class MainActivity extends AppCompatActivity {
         btTakePhoto = findViewById(R.id.btTakePhoto);
         ivPhoto = findViewById(R.id.ivPhoto);
         btSubmit = findViewById(R.id.btSubmit);
+        btFeed = findViewById(R.id.btFeed);
+
+        btFeed.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "going to feed!");
+                goToFeed();
+            }
+        });
 
         btTakePhoto.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -92,6 +102,11 @@ public class MainActivity extends AppCompatActivity {
                 savePost(description, currentUser, photoFile);
             }
         });
+    }
+
+    private void goToFeed() {
+        Intent i = new Intent(this, FeedActivity.class);
+        startActivity(i);
     }
 
     private void launchCamera() {
