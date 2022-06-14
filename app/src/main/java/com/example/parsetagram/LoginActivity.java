@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.parse.LogInCallback;
@@ -20,6 +21,7 @@ public class LoginActivity extends AppCompatActivity {
     EditText etUsername;
     EditText etPassword;
     Button btSignIn;
+    ImageView ivLogo;
 
 
     @Override
@@ -35,6 +37,7 @@ public class LoginActivity extends AppCompatActivity {
         etUsername = findViewById(R.id.etUsername);
         etPassword = findViewById(R.id.etPassword);
         btSignIn = findViewById(R.id.btSignIn);
+        ivLogo = findViewById(R.id.ivLogo);
 
         btSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -60,12 +63,12 @@ public class LoginActivity extends AppCompatActivity {
                 }
             // TODO: navigate to the main activity if the user has signed in properly
             goMainActivity();
-                Toast.makeText(LoginActivity.this, "Logged in!", Toast.LENGTH_SHORT).show();
             }
         });
     }
 
     private void goMainActivity() {
+        Toast.makeText(LoginActivity.this, "Logged in!", Toast.LENGTH_SHORT).show();
         Intent i = new Intent(this, MainActivity.class);
         startActivity(i);
         finish();

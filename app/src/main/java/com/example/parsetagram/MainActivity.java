@@ -75,10 +75,10 @@ public class MainActivity extends AppCompatActivity {
                     Log.e(TAG, "ERROR WHILE SAVING", e);
                     return;
                 }
+                Log.i(TAG, "Save was successful!");
+                etDescription.getText().clear();
             }
         });
-        // Log.i(TAG, "Save was successful!");
-        etDescription.getText().clear();
     }
 
     private void queryPosts() {
