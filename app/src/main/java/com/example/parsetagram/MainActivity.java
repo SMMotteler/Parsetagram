@@ -126,11 +126,11 @@ public class MainActivity extends AppCompatActivity {
 
         // TODO: this code was in the original Codepath code, but it kept my camera from opening:
         // TODO: when it is commented out, the camera opens and operates correctly
-        //if (intent.resolveActivity(getPackageManager()) != null) {
+        if (intent.resolveActivity(getPackageManager()) != null) {
             // Start the image capture intent to take photo
             startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
             Log.i(TAG, " pics :(");
-        //}
+        }
 
     }
 

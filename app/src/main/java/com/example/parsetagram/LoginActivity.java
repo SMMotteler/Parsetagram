@@ -9,11 +9,14 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.LogInCallback;
 import com.parse.ParseException;
 import com.parse.ParseUser;
+
+import org.w3c.dom.Text;
 
 public class LoginActivity extends AppCompatActivity {
 
@@ -21,7 +24,9 @@ public class LoginActivity extends AppCompatActivity {
     EditText etUsername;
     EditText etPassword;
     Button btSignIn;
+    Button btRegister;
     ImageView ivLogo;
+    TextView tvAccountAsk;
 
 
     @Override
@@ -38,6 +43,8 @@ public class LoginActivity extends AppCompatActivity {
         etPassword = findViewById(R.id.etPassword);
         btSignIn = findViewById(R.id.btSignIn);
         ivLogo = findViewById(R.id.ivLogo);
+        btRegister = findViewById(R.id.btRegister);
+        tvAccountAsk = findViewById(R.id.tvAccountAsk);
 
         btSignIn.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -46,6 +53,13 @@ public class LoginActivity extends AppCompatActivity {
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
                 loginUser(username, password);
+            }
+        });
+        btRegister.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Log.i(TAG, "onClick register button");
+                goRegister();
             }
         });
     }
@@ -61,7 +75,6 @@ public class LoginActivity extends AppCompatActivity {
                     Log.e(TAG, "Issue with login", e);
                     return;
                 }
-            // TODO: navigate to the main activity if the user has signed in properly
             goMainActivity();
             }
         });
@@ -70,6 +83,11 @@ public class LoginActivity extends AppCompatActivity {
     private void goMainActivity() {
         Toast.makeText(LoginActivity.this, "Logged in!", Toast.LENGTH_SHORT).show();
         Intent i = new Intent(this, MainActivity.class);
+        startActivity(i);
+        finish();
+    }
+    private void goRegister() {
+        Intent i = new Intent(this, RegisterActivity.class);
         startActivity(i);
         finish();
     }
