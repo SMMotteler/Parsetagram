@@ -1,45 +1,84 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="8dp"
+    android:orientation="vertical"
     android:padding="8dp"
-    tools:context=".DetailActivity">
-
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="340dp"
-        android:layout_height="340dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.492"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:srcCompat="@tools:sample/avatars" />
+    >
 
     <TextView
         android:id="@+id/tvUsername"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textAppearance="@style/TextAppearance.AppCompat.Display1"
         android:textSize="24sp"
         android:textStyle="bold"
-        tools:layout_editor_absoluteX="43dp"
-        tools:layout_editor_absoluteY="361dp"
-        tools:text="Sarah" />
+        tools:layout_editor_absoluteX="54dp"
+        tools:layout_editor_absoluteY="62dp"
+        tools:text="sarah" />
+
+    <ImageView
+        android:id="@+id/ivPostPhoto"
+        android:layout_width="match_parent"
+        android:layout_height="300dp"
+        tools:layout_editor_absoluteX="36dp"
+        tools:layout_editor_absoluteY="119dp"
+        tools:srcCompat="@tools:sample/avatars"
+        android:scaleType="centerCrop" />
 
     <TextView
-        android:id="@+id/tvDescription"
+        android:id="@+id/tvCaption"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="126dp"
-        tools:layout_editor_absoluteY="368dp"
-        tools:text="hello there" />
+        android:textAppearance="@style/TextAppearance.AppCompat.Body1"
+        tools:layout_editor_absoluteX="39dp"
+        tools:layout_editor_absoluteY="479dp"
+        tools:text="this is my caption" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:orientation="horizontal"
+        android:gravity="end"
+        >
 
-    <TextView
-        android:id="@+id/tvTimestamp"
-        android:layout_width="wrap_content"
+        <EditText
+            android:id="@+id/etComment"
+            android:layout_width="260dp"
+            android:layout_height="match_parent"
+            android:hint="say something..."
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textStyle="italic"
+            app:layout_constraintTop_toBottomOf="@+id/tvDescription"
+            tools:layout_editor_absoluteX="139dp" />
+
+        <Button
+            android:id="@+id/btComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Comment"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        tools:layout_editor_absoluteX="214dp"
-        tools:layout_editor_absoluteY="358dp"
-        tools:text="yesterday" />
-</androidx.constraintlayout.widget.ConstraintLayout>
+        android:layout_margin="8dp"
+        android:orientation="horizontal"
+        android:gravity="end"
+        >
+
+        <TextView
+            android:id="@+id/tvTimestamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textAppearance="@style/TextAppearance.AppCompat.Small"
+            android:textStyle="italic"
+            app:layout_constraintTop_toBottomOf="@+id/tvDescription"
+            tools:layout_editor_absoluteX="139dp"
+            tools:text="yesterday" />
+    </LinearLayout>
+</LinearLayout>

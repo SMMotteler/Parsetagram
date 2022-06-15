@@ -1,5 +1,7 @@
 package com.example.parsetagram;
 
+import com.example.parsetagram.models.Comment;
+import com.example.parsetagram.models.Post;
 import com.parse.Parse;
 import com.parse.ParseObject;
 
@@ -14,6 +16,7 @@ public class ParseApplication extends Application {
 
         // Register your parse models
         ParseObject.registerSubclass(Post.class);
+        ParseObject.registerSubclass(Comment.class);
 
 
         Parse.initialize(new Parse.Configuration.Builder(this)

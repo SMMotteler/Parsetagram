@@ -1,6 +1,7 @@
-package com.example.parsetagram.models;
+package com.example.parsetagram.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,15 +13,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
-import com.example.parsetagram.Post;
+import com.example.parsetagram.PostDetailActivity;
 import com.example.parsetagram.R;
+import com.example.parsetagram.models.Post;
 import com.parse.ParseFile;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
-public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> {
+public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder>  {
 
     public static final String TAG = "PostsAdapter";
     private Context context;
@@ -53,7 +53,8 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         return posts.size();
     }
 
-    class ViewHolder extends RecyclerView.ViewHolder {
+
+    class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private TextView tvUsername;
         private TextView tvCaption;
         private ImageView ivPostPhoto;
@@ -67,8 +68,19 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
             Log.i(TAG, "creating viewholder ");
 
+            itemView.setOnClickListener(this);
         }
+        @Override
+        public void onClick(View view) {
+            int position = getAdapterPosition();
+            if (position != RecyclerView.NO_POSITION) {
+                Post post = posts.get(position);
+                Intent showDetails = new Intent(context, PostDetailActivity.class);
+                showDetails.putExtra("clickedPost", post);
+                context.startActivity(showDetails);
 
+            }
+        }
         public void bind(Post post) {
             Log.i(TAG, "binding post ");
 
@@ -86,18 +98,10 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
             }
         }
+
+
     }
 
-    public void clear() {
-        posts.clear();
-        notifyDataSetChanged();
-    }
-
-    // Add a list of items -- change to type used
-    public void addAll(List<Post> list) {
-        posts.addAll(list);
-        notifyDataSetChanged();
-    }
 
 }
 

@@ -1,9 +1,13 @@
-package com.example.parsetagram;
+package com.example.parsetagram.models;
+
+import android.util.Log;
 
 import com.parse.ParseClassName;
 import com.parse.ParseFile;
 import com.parse.ParseObject;
 import com.parse.ParseUser;
+
+import java.util.Date;
 
 @ParseClassName("Post")
 public class Post extends ParseObject {
@@ -30,7 +34,7 @@ public void setImage(ParseFile image){
 }
 
 public ParseUser getUser(){
-    return getParseUser("user");
+    return getParseUser(KEY_USER);
 }
 
 public void setUser(ParseUser user){

@@ -8,7 +8,8 @@ import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import android.os.Bundle;
 import android.util.Log;
 
-import com.example.parsetagram.models.PostsAdapter;
+import com.example.parsetagram.models.Post;
+import com.example.parsetagram.adapters.PostsAdapter;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
@@ -93,6 +94,8 @@ public class FeedActivity extends AppCompatActivity {
         });
 
     }
+
+
 
 
 }
