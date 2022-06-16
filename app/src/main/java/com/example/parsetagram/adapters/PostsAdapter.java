@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -14,6 +15,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
 import com.example.parsetagram.PostDetailActivity;
+import com.example.parsetagram.ParsetagramHelper;
 import com.example.parsetagram.R;
 import com.example.parsetagram.models.Post;
 import com.parse.ParseFile;
@@ -42,7 +44,6 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
-
         Log.i(TAG, "onBindViewHolder " + position);
         Post post = posts.get(position);
         holder.bind(post);
@@ -58,18 +59,23 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private TextView tvUsername;
         private TextView tvCaption;
         private ImageView ivPostPhoto;
+        private ImageButton ibLike;
+        private ImageButton ibComment;
 
         public ViewHolder(@NonNull View itemView) {
 
             super(itemView);
-            tvUsername = itemView.findViewById(R.id.tvUsername);
-            tvCaption = itemView.findViewById(R.id.tvCaption);
-            ivPostPhoto = itemView.findViewById(R.id.ivPostPhoto);
+//            tvUsername = itemView.findViewById(R.id.tvUsername);
+//            tvCaption = itemView.findViewById(R.id.tvCaption);
+//            ivPostPhoto = itemView.findViewById(R.id.ivPostPhoto);
+//            ibLike = itemView.findViewById(R.id.ibLike);
+//            ibComment = itemView.findViewById(R.id.ibComment);
 
             Log.i(TAG, "creating viewholder ");
 
             itemView.setOnClickListener(this);
         }
+
         @Override
         public void onClick(View view) {
             int position = getAdapterPosition();
@@ -81,22 +87,34 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
             }
         }
+
         public void bind(Post post) {
             Log.i(TAG, "binding post ");
 
             Log.i(TAG, "adapting post "+post.getDescription());
+            tvUsername = itemView.findViewById(R.id.tvUsername);
+            tvCaption = itemView.findViewById(R.id.tvCaption);
+            ivPostPhoto = itemView.findViewById(R.id.ivPostPhoto);
+            ibLike = itemView.findViewById(R.id.ibLike);
+            ibComment = itemView.findViewById(R.id.ibComment);
+
+
             tvUsername.setText(post.getUser().getUsername());
             tvCaption.setText(post.getDescription());
-            ParseFile image = post.getImage();
-            if (image == null){
-                ivPostPhoto.setVisibility(View.GONE);
-            }
-            if (image != null) {
-                ivPostPhoto.setVisibility(View.VISIBLE);
-                Log.i(TAG, "Image: "+ image.getUrl());
-                Glide.with(context).load(image.getUrl()).into(ivPostPhoto);
 
-            }
+            Glide.with(context).load(ParsetagramHelper.imageUrl(post)).into(ivPostPhoto);
+
+            ParsetagramHelper.checkLikes(post, ibLike);
+
+            ibLike.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ParsetagramHelper.clickLike(post, ibLike);
+
+                    // tvLikes.setText(post.getLikedBy().size()+" likes");
+
+                }
+            });
         }
 
 

@@ -15,13 +15,11 @@ import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.example.parsetagram.adapters.CommentsAdapter;
-import com.example.parsetagram.adapters.PostsAdapter;
 import com.example.parsetagram.models.Comment;
 import com.example.parsetagram.models.Post;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;
-import com.parse.ParseUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,21 +41,33 @@ public class PostDetailActivity extends AppCompatActivity {
         ImageButton ibLike = findViewById(R.id.ibLike);
         ImageButton ibComment = findViewById(R.id.ibComment);
         TextView tvLikes = findViewById(R.id.tvLikes);
+        TextView tvCaption = findViewById(R.id.tvCaption);
         rvComments = findViewById(R.id.rvComments);
 
         post = getIntent().getParcelableExtra("clickedPost");
 
+        ParsetagramHelper.checkLikes(post, ibLike);
+
         tvUsername.setText(post.getUser().getUsername());
         tvDate.setText(post.getUpdatedAt().toString());
-        Glide.with(this).load(post.getImage().getUrl()).into(ivPhoto);
+        tvCaption.setText(post.getDescription());
+        tvLikes.setText(post.getLikedBy().size()+" likes");
+        Glide.with(this).load(ParsetagramHelper.imageUrl(post)).into(ivPhoto);
 
         ibComment.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // go to the compose comment activity
-                Intent i = new Intent(PostDetailActivity.this, ComposeCommentActivity.class);
-                i.putExtra("post", post);
-                startActivity(i);
+                ParsetagramHelper.clickComment(PostDetailActivity.this, post);
+            }
+        });
+
+        ibLike.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                ParsetagramHelper.clickLike(post, ibLike);
+                tvLikes.setText(post.getLikesCount());
+
             }
         });
 
@@ -68,8 +78,6 @@ public class PostDetailActivity extends AppCompatActivity {
         rvComments.setLayoutManager(linearLayoutManager);
 
         queryComments();
-
-
 
     }
 
@@ -112,23 +120,4 @@ public class PostDetailActivity extends AppCompatActivity {
 
     }
 
-    private void populate(Post post) {
-        ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
-        query.whereEqualTo("objectId", getIntent().getStringExtra("id"));
-        query.findInBackground(new FindCallback<Post>() {
-            public void done(List<Post> posts, ParseException e) {
-                if (e == null) {
-                    Log.i("Detail", "found post!, "+posts.size());
-                    // Log.i("Detail", "post key "+getIntent().getStringExtra("id"));
-                    Post post = posts.get(0);
-                    populate(post);
-                    // row of Object Id "U8mCwTHOaC"
-                } else {
-                    // error
-                    Toast.makeText(PostDetailActivity.this, "error getting post!", Toast.LENGTH_SHORT).show();
-                }
-            }
-        });
-
-    }
 }

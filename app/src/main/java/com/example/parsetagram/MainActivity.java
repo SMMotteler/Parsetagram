@@ -105,6 +105,15 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
+    private void goLoginActivity() {
+        ParseUser.logOutInBackground();
+        ParseUser currentUser = ParseUser.getCurrentUser(); // currentUser will be null
+        Toast.makeText(this, "Logged out", Toast.LENGTH_SHORT).show();
+        Intent i = new Intent(MainActivity.this, LoginActivity.class);
+        startActivity(i);
+        finish();
+    }
+
     private void goToFeed() {
         Intent i = new Intent(this, FeedActivity.class);
         startActivity(i);
@@ -125,8 +134,6 @@ public class MainActivity extends AppCompatActivity {
         // If you call startActivityForResult() using an intent that no app can handle, your app will crash.
         // So as long as the result is not null, it's safe to use the intent.
 
-        // TODO: this code was in the original Codepath code, but it kept my camera from opening:
-        // TODO: when it is commented out, the camera opens and operates correctly
         if (intent.resolveActivity(getPackageManager()) != null) {
             // Start the image capture intent to take photo
             startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
@@ -229,29 +236,6 @@ public class MainActivity extends AppCompatActivity {
         });
     }
 
-    private void queryPosts() {
-        ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
-        query.include(Post.KEY_USER);
-        query.findInBackground(new FindCallback<Post>() {
-            @Override
-            public void done(List<Post> posts, ParseException e) {
-                if (e != null){
-                    Log.e(TAG, "issue with getting posts", e);
-                    return;
-                }
-                for (Post post: posts){
-                    Log.i(TAG, "Post: "+post.getDescription()+", user: "+post.getUser().getUsername());
-                }
-            }
-        });
-    }
 
-    private void goLoginActivity() {
-        ParseUser.logOutInBackground();
-        ParseUser currentUser = ParseUser.getCurrentUser(); // currentUser will be null
-        Toast.makeText(this, "Logged out", Toast.LENGTH_SHORT).show();
-        Intent i = new Intent(MainActivity.this, LoginActivity.class);
-        startActivity(i);
-        finish();
-    }
+
 }

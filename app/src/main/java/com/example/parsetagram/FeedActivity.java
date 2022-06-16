@@ -42,8 +42,6 @@ public class FeedActivity extends AppCompatActivity {
         rvPosts.setAdapter(adapter);
         rvPosts.setLayoutManager(linearLayoutManager);
 
-        queryPosts();
-
         swipeContainer.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -61,11 +59,22 @@ public class FeedActivity extends AppCompatActivity {
                 android.R.color.holo_red_light);
 
     }
+
+    @Override
+    protected void onResume() {
+        // called every time we come back to this activity, including when we come to the activity
+        // for the first time.
+        super.onResume();
+        Log.i("on resume", "we're resuming");
+        queryPosts();
+    }
+
     private void queryPosts() {
         // specify what type of data we want to query - Post.class
         ParseQuery<Post> query = ParseQuery.getQuery(Post.class);
         // include data referred by user key
         query.include(Post.KEY_USER);
+        query.include(Post.KEY_LIKED_BY);
         // limit query to latest 20 items
         query.setLimit(20);
         // order posts by creation date (newest first)

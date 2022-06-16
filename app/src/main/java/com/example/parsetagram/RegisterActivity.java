@@ -13,6 +13,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.parse.LogInCallback;
+import com.parse.Parse;
 import com.parse.ParseException;
 import com.parse.ParseUser;
 import com.parse.SignUpCallback;
@@ -51,7 +52,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void makeAccount(String username, String password, String checkPassword) {
-        if (! checkPassword.equals(password)){
+        if (!checkPassword.equals(password)) {
             Toast.makeText(RegisterActivity.this, "The passwords aren't equal to each other! Retype your password.", Toast.LENGTH_SHORT).show();
             Log.i(TAG, checkPassword);
             Log.i(TAG, password);
@@ -67,15 +68,15 @@ public class RegisterActivity extends AppCompatActivity {
         user.signUpInBackground(new SignUpCallback() {
             @Override
             public void done(ParseException e) {
-                if (e != null){
+                if (e != null) {
                     // TODO: better error handling
                     Toast.makeText(RegisterActivity.this, "Issue with registering :(", Toast.LENGTH_SHORT).show();
-                    Log.e(TAG, "Issue with register", e);
+                    Log.e(TAG, "Issue with registering", e);
                     return;
                 }
                 try {
                     user.save();
-                    loginUser(username, password);
+                    ParsetagramHelper.loginUser(username, password, RegisterActivity.this);
                 } catch (ParseException i) {
                     e.printStackTrace();
                     Log.e(TAG, "couldn't make account", i);
@@ -84,30 +85,6 @@ public class RegisterActivity extends AppCompatActivity {
                 }
             }
         });
-
     }
-    private void loginUser(String username, String password) {
-        Log.i(TAG, "Attempting to login user "+username);
-        ParseUser.logInInBackground(username, password, new LogInCallback() {
-            @Override
-            public void done(ParseUser user, ParseException e) {
-                if (e != null){
-                    // TODO: better error handling
-                    Toast.makeText(RegisterActivity.this, "Issue with login :(", Toast.LENGTH_SHORT).show();
-                    Log.e(TAG, "Issue with login", e);
-                    return;
-                }
-                goMainActivity();
-            }
-        });
-    }
-
-    private void goMainActivity() {
-        Toast.makeText(RegisterActivity.this, "Logged in!", Toast.LENGTH_SHORT).show();
-        Intent i = new Intent(this, MainActivity.class);
-        startActivity(i);
-        finish();
-    }
-
 
 }

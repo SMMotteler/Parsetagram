@@ -35,7 +35,7 @@ public class LoginActivity extends AppCompatActivity {
         setContentView(R.layout.activity_login);
 
         if (ParseUser.getCurrentUser() != null){
-            goMainActivity();
+            ParsetagramHelper.goMainActivity(LoginActivity.this);
         }
 
         // find the views and reference them here
@@ -52,9 +52,10 @@ public class LoginActivity extends AppCompatActivity {
                 Log.i(TAG, "onClick login button");
                 String username = etUsername.getText().toString();
                 String password = etPassword.getText().toString();
-                loginUser(username, password);
+                ParsetagramHelper.loginUser(username, password, LoginActivity.this);
             }
         });
+
         btRegister.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,28 +65,6 @@ public class LoginActivity extends AppCompatActivity {
         });
     }
 
-    private void loginUser(String username, String password) {
-        Log.i(TAG, "Attempting to login user "+username);
-        ParseUser.logInInBackground(username, password, new LogInCallback() {
-            @Override
-            public void done(ParseUser user, ParseException e) {
-                if (e != null){
-                    // TODO: better error handling
-                    Toast.makeText(LoginActivity.this, "Issue with login :(", Toast.LENGTH_SHORT).show();
-                    Log.e(TAG, "Issue with login", e);
-                    return;
-                }
-            goMainActivity();
-            }
-        });
-    }
-
-    private void goMainActivity() {
-        Toast.makeText(LoginActivity.this, "Logged in!", Toast.LENGTH_SHORT).show();
-        Intent i = new Intent(this, MainActivity.class);
-        startActivity(i);
-        finish();
-    }
     private void goRegister() {
         Intent i = new Intent(this, RegisterActivity.class);
         startActivity(i);
