@@ -12,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.parsetagram.models.User;
 import com.parse.LogInCallback;
 import com.parse.Parse;
 import com.parse.ParseException;
@@ -62,7 +63,7 @@ public class RegisterActivity extends AppCompatActivity {
     }
 
     private void registerAccount(String username, String password) {
-        ParseUser user = new ParseUser();
+        User user = new User();
         user.setUsername(username);
         user.setPassword(password);
         user.signUpInBackground(new SignUpCallback() {

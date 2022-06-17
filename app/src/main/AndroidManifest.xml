@@ -34,9 +34,6 @@
         <activity
             android:name=".PostDetailActivity"
             android:exported="false" />
-        <activity
-            android:name=".FeedActivity"
-            android:exported="false" />
 
         <provider
             android:name="androidx.core.content.FileProvider"

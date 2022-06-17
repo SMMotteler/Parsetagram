@@ -37,7 +37,7 @@ public class ParsetagramHelper {
     }
 
     public static void goMainActivity(Activity activity) {
-        Toast.makeText(activity.getApplicationContext(), "Logged in!", Toast.LENGTH_SHORT).show();
+        // Toast.makeText(activity.getApplicationContext(), "Logged in!", Toast.LENGTH_SHORT).show();
         Intent i = new Intent(activity.getApplicationContext(), MainActivity.class);
         activity.startActivity(i);
         activity.finish();

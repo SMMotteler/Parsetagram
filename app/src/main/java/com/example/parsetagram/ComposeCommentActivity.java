@@ -29,7 +29,7 @@ public class ComposeCommentActivity extends AppCompatActivity {
 
         post = getIntent().getParcelableExtra("post");
 
-        Toast.makeText(this, post.getDescription(), Toast.LENGTH_SHORT).show();
+        // Toast.makeText(this, post.getDescription(), Toast.LENGTH_SHORT).show();
 
         btSave = findViewById(R.id.btSave);
         etBody = findViewById(R.id.etBody);
@@ -39,6 +39,12 @@ public class ComposeCommentActivity extends AppCompatActivity {
             public void onClick(View v) {
                 // post the new comment to parse
                 String body = etBody.getText().toString();
+
+                if (body.isEmpty()){
+                    Toast.makeText(ComposeCommentActivity.this, "Your comment needs a description!",
+                            Toast.LENGTH_SHORT).show();
+                    return;
+                }
 
                 // schema: Comment.java
                 Comment comment = new Comment();

@@ -29,7 +29,7 @@ public class ComposeCommentActivity extends AppCompatActivity {
 
         post = getIntent().getParcelableExtra("post");
 
-        Toast.makeText(this, post.getDescription(), Toast.LENGTH_SHORT).show();
+        // Toast.makeText(this, post.getDescription(), Toast.LENGTH_SHORT).show();
 
         btSave = findViewById(R.id.btSave);
         etBody = findViewById(R.id.etBody);

@@ -72,10 +72,6 @@ public class ProfileFragment extends BaseFragment {
     public ProfileFragment() {
         // Required empty public constructor
     }
-    public ProfileFragment(ParseUser user) {
-        this.user = (User) user;
-        // Required empty public constructor
-    }
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -118,7 +114,15 @@ public class ProfileFragment extends BaseFragment {
                 displayUserInfo();
             }
         });
-        //displayUserInfo();
+
+        if(user.hasSameId(ParseUser.getCurrentUser())){
+            btLogout.setVisibility(View.VISIBLE);
+        }
+        else{
+            btLogout.setVisibility(View.GONE);
+        }
+
+
         LinearLayoutManager linearLayoutManager = new LinearLayoutManager(getContext());
 
         rvFilteredFeed.setAdapter(adapter);

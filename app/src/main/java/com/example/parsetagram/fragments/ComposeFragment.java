@@ -166,7 +166,7 @@ public class ComposeFragment extends BaseFragment {
                     Log.e(TAG, "ERROR WHILE SAVING", e);
                     return;
                 }
-                Toast.makeText(getContext(), "Save was successful", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getContext(), "Save was successful", Toast.LENGTH_SHORT).show();
                 Log.i(TAG, "Save was successful!");
                 etDescription.getText().clear();
                 ivPhoto.setImageResource(0);
