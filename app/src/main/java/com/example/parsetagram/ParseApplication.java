@@ -2,6 +2,7 @@ package com.example.parsetagram;
 
 import com.example.parsetagram.models.Comment;
 import com.example.parsetagram.models.Post;
+import com.example.parsetagram.models.User;
 import com.parse.Parse;
 import com.parse.ParseObject;
 
@@ -15,6 +16,7 @@ public class ParseApplication extends Application {
         super.onCreate();
 
         // Register your parse models
+        ParseObject.registerSubclass(User.class);
         ParseObject.registerSubclass(Post.class);
         ParseObject.registerSubclass(Comment.class);
 

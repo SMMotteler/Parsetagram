@@ -18,6 +18,7 @@ import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.example.parsetagram.adapters.CommentsAdapter;
 import com.example.parsetagram.models.Comment;
 import com.example.parsetagram.models.Post;
+import com.example.parsetagram.models.User;
 import com.parse.FindCallback;
 import com.parse.ParseException;
 import com.parse.ParseQuery;

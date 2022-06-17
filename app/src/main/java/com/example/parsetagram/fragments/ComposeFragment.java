@@ -35,14 +35,9 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 
-public class ComposeFragment extends Fragment {
-    private static final String TAG = "ComposeFragment";
-    public final static int CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE = 1034;
-    private static final int RESULT_OK = -1;
-    public String photoFileName = "photo.jpg";
-    private File photoFile;
+public class ComposeFragment extends BaseFragment {
 
-    private Button btLogout;
+    private static final int RESULT_OK = -1;
     private EditText etDescription;
     private Button btTakePhoto;
     private ImageView ivPhoto;
@@ -64,7 +59,6 @@ public class ComposeFragment extends Fragment {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        btLogout = view.findViewById(R.id.btLogout);
         etDescription = view.findViewById(R.id.etDescription);
         btTakePhoto = view.findViewById(R.id.btTakePhoto);
         ivPhoto = view.findViewById(R.id.ivPhoto);
@@ -75,13 +69,6 @@ public class ComposeFragment extends Fragment {
             public void onClick(View v) {
                 Log.i(TAG, "photo button clicked!");
                 launchCamera();
-            }
-        });
-
-        btLogout.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                goLoginActivity();
             }
         });
 
@@ -105,40 +92,6 @@ public class ComposeFragment extends Fragment {
                 savePost(description, currentUser, photoFile);
             }
         });
-    }
-
-    private void goLoginActivity() {
-        ParseUser.logOutInBackground();
-        ParseUser currentUser = ParseUser.getCurrentUser(); // currentUser will be null
-        // TODO: how to go from a fragment to an activity
-
-    }
-
-    private void goToFeed() {
-        // TODO: how to go from one fragment to another
-    }
-
-    private void launchCamera() {
-        // create Intent to take a picture and return control to the calling application
-        Intent intent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
-        // Create a File reference for future access
-        photoFile = getPhotoFileUri(photoFileName);
-
-        // wrap File object into a content provider
-        // required for API >= 24
-        // See https://guides.codepath.com/android/Sharing-Content-with-Intents#sharing-files-with-api-24-or-higher
-        Uri fileProvider = FileProvider.getUriForFile(getContext(), "com.codepath.fileprovider", photoFile);
-        intent.putExtra(MediaStore.EXTRA_OUTPUT, fileProvider);
-
-        // If you call startActivityForResult() using an intent that no app can handle, your app will crash.
-        // So as long as the result is not null, it's safe to use the intent.
-
-        if (intent.resolveActivity(getContext().getPackageManager()) != null) {
-            // Start the image capture intent to take photo
-            startActivityForResult(intent, CAPTURE_IMAGE_ACTIVITY_REQUEST_CODE);
-            Log.i(TAG, " pics :(");
-        }
-
     }
 
     @Override
@@ -198,23 +151,7 @@ public class ComposeFragment extends Fragment {
         }
     }
 
-    private File getPhotoFileUri(String fileName) {
-        // Get safe storage directory for photos
-        // Use `getExternalFilesDir` on Context to access package-specific directories.
-        // This way, we don't need to request external read/write runtime permissions.
-        File mediaStorageDir = new File(getActivity().getExternalFilesDir(Environment.DIRECTORY_PICTURES), TAG);
 
-        // Create the storage directory if it does not exist
-        if (!mediaStorageDir.exists() && !mediaStorageDir.mkdirs()){
-            Log.d(TAG, "failed to create directory");
-        }
-
-        // Return the file target for the photo based on filename
-        File file = new File(mediaStorageDir.getPath() + File.separator + fileName);
-
-        return file;
-
-    }
 
     private void savePost(String description, ParseUser currentUser, File photoFile) {
         Post post = new Post();

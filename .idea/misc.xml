@@ -10,8 +10,12 @@
         <entry key="app/src/main/res/layout/activity_main.xml" value="0.165" />
         <entry key="app/src/main/res/layout/activity_post_details.xml" value="0.3696369636963696" />
         <entry key="app/src/main/res/layout/activity_register.xml" value="0.1" />
+        <entry key="app/src/main/res/layout/fragment_profile.xml" value="0.335" />
         <entry key="app/src/main/res/layout/item_comment.xml" value="0.25" />
         <entry key="app/src/main/res/layout/item_post.xml" value="0.22361907958984378" />
+        <entry key="app/src/main/res/menu/a.xml" value="0.1" />
+        <entry key="app/src/main/res/menu/menu_bottom_nav.xml" value="0.1" />
+        <entry key="app/src/main/res/menu/menu_bottom_navigation.xml" value="0.1" />
         <entry key="app/src/main/res/xml/fileprovider.xml" value="0.1" />
       </map>
     </option>

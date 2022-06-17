@@ -16,10 +16,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
+import com.example.parsetagram.MainActivity;
 import com.example.parsetagram.PostDetailActivity;
 import com.example.parsetagram.ParsetagramHelper;
 import com.example.parsetagram.R;
 import com.example.parsetagram.models.Post;
+import com.example.parsetagram.models.User;
 import com.parse.ParseFile;
 
 import java.util.List;
@@ -119,6 +121,25 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
 
                 }
             });
+
+            ivProfilePic.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    MainActivity activity = (MainActivity)context;
+                    activity.goToProfileTab((User)post.getUser());
+
+                }
+            });
+
+            ibComment.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    // go to the compose comment activity
+                    MainActivity activity = (MainActivity)context;
+                    ParsetagramHelper.clickComment(activity, post);
+                }
+            });
+
         }
 
 
