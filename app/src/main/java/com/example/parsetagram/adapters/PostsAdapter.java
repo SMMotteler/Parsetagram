@@ -14,6 +14,8 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
+import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
 import com.example.parsetagram.PostDetailActivity;
 import com.example.parsetagram.ParsetagramHelper;
 import com.example.parsetagram.R;
@@ -61,6 +63,7 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
         private ImageView ivPostPhoto;
         private ImageButton ibLike;
         private ImageButton ibComment;
+        private ImageView ivProfilePic;
 
         public ViewHolder(@NonNull View itemView) {
 
@@ -97,13 +100,14 @@ public class PostsAdapter extends RecyclerView.Adapter<PostsAdapter.ViewHolder> 
             ivPostPhoto = itemView.findViewById(R.id.ivPostPhoto);
             ibLike = itemView.findViewById(R.id.ibLike);
             ibComment = itemView.findViewById(R.id.ibComment);
+            ivProfilePic = itemView.findViewById(R.id.ivProfilePic);
 
 
             tvUsername.setText(post.getUser().getUsername());
             tvCaption.setText(post.getDescription());
 
-            Glide.with(context).load(ParsetagramHelper.imageUrl(post)).into(ivPostPhoto);
-
+            Glide.with(context).load(ParsetagramHelper.postPhoto(post)).into(ivPostPhoto);
+            Glide.with(context).load(ParsetagramHelper.profilePic(post.getUser())).transform(new CircleCrop()).into(ivProfilePic);
             ParsetagramHelper.checkLikes(post, ibLike);
 
             ibLike.setOnClickListener(new View.OnClickListener() {

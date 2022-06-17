@@ -14,6 +14,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.example.parsetagram.adapters.CommentsAdapter;
 import com.example.parsetagram.models.Comment;
 import com.example.parsetagram.models.Post;
@@ -38,6 +39,7 @@ public class PostDetailActivity extends AppCompatActivity {
         TextView tvUsername = findViewById(R.id.tvUsername);
         TextView tvDate = findViewById(R.id.tvDate);
         ImageView ivPhoto = findViewById(R.id.ivPhoto);
+        ImageView ivProfilePic = findViewById(R.id.ivProfilePic);
         ImageButton ibLike = findViewById(R.id.ibLike);
         ImageButton ibComment = findViewById(R.id.ibComment);
         TextView tvLikes = findViewById(R.id.tvLikes);
@@ -52,7 +54,8 @@ public class PostDetailActivity extends AppCompatActivity {
         tvDate.setText(post.getUpdatedAt().toString());
         tvCaption.setText(post.getDescription());
         tvLikes.setText(post.getLikedBy().size()+" likes");
-        Glide.with(this).load(ParsetagramHelper.imageUrl(post)).into(ivPhoto);
+        Glide.with(this).load(ParsetagramHelper.postPhoto(post)).into(ivPhoto);
+        Glide.with(this).load(ParsetagramHelper.profilePic(post.getUser())).transform(new CircleCrop()).into(ivProfilePic);
 
         ibComment.setOnClickListener(new View.OnClickListener() {
             @Override

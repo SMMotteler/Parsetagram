@@ -67,11 +67,18 @@ public class ParsetagramHelper {
 
     }
 
-
-    public static String imageUrl(Post post){
+    public static String postPhoto(Post post){
         ParseFile image = post.getImage();
         if (image == null){
             return "android.resource://com.example.parsetagram/"+R.drawable.placeholder;
+        }
+        return image.getUrl();
+    }
+
+    public static String profilePic(ParseUser user){
+        ParseFile image = (ParseFile)user.get("profilePic");
+        if (image == null){
+            return "android.resource://com.example.parsetagram/"+R.drawable.default_pic;
         }
         return image.getUrl();
     }
